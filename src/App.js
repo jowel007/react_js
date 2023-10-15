@@ -1,29 +1,46 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-function App() {
-  
-  const [username, setUsername] = useState('Rohan');
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    // creating a state/assigning state
 
-  const clickHandler = (eventData) => {
-    setUsername('asif');
-    console.log(username);
+    this.state = {
+      personName:'jowel',
+      counter: 1
+    }
 
-    setUsername('rahul');
-    console.log(username);
+  }
 
-    setUsername('jishan');
-    console.log(username);
-
+  clickHandler = (eventData) => {
+    // this.personName = 'rohan';
+    this.setState({
+      personName:'rana'
+    })
+    console.log(this.state.personName);
   };
 
-  return(
-    <div className='main'>
-      <p>Hello, {username}</p>
-      <button className='bnt' onClick={clickHandler}>Click</button>
-    </div>
-  );
+  incrementHandler = () => {
+    this.setState((prevState) => {
+      return {
+        counter: prevState.counter + 1,
+      };
+    });
+  };
 
+  render() {
+    return (
+      <div className="main">
+        <h1>hello, {this.state.personName}</h1>
+        <h2>Count: {this.state.counter}</h2>
+        <button className="btn" onClick={this.clickHandler}>
+          Click Me
+        </button><hr></hr>
+        <button className="btn" onClick={this.incrementHandler}>Increment</button>
+      </div>
+    );
+  }
 }
 
 export default App;
