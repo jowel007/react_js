@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  
+  const [username, setUsername] = useState('Rohan');
+
+  const clickHandler = (eventData) => {
+    setUsername('asif');
+    console.log(username);
+
+    setUsername('rahul');
+    console.log(username);
+
+    setUsername('jishan');
+    console.log(username);
+
+  };
+
+  return(
+    <div className='main'>
+      <p>Hello, {username}</p>
+      <button className='bnt' onClick={clickHandler}>Click</button>
     </div>
   );
+
 }
 
 export default App;
