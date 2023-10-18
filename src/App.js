@@ -1,46 +1,61 @@
-import React from "react";
-import "./App.css";
+import React, {useState} from "react";
+import Card from './components/Card'
+import User from './components/User'
+const FACE_URL = 'https://api.dicebear.com/7.x/croodles/svg';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    // creating a state/assigning state
+const userList = [
+  {
+    username: 'Rohit',
+    face: `${FACE_URL}/rohit.svg`,
+    status: 'Pending',
+  },
+  {
+    username: 'Mohit',
+    face: `${FACE_URL}/mohit.svg`,
+    status: 'Pending',
+  },
+];
 
-    this.state = {
-      personName:'jowel',
-      counter: 1
-    }
+function App() {
 
-  }
+  const  [users, setUsers]= useState(userList);
 
-  clickHandler = (eventData) => {
-    // this.personName = 'rohan';
-    this.setState({
-      personName:'rana'
-    })
-    console.log(this.state.personName);
+  const verifyHandler = (index) => {
+     //bad way
+    //  user.status = 'Active';
+    // const user = users[index];
+    // console.log(user);
+    // user.status = 'Active';
+    // setUsers(users);
+
+
+                   //right way
+
+    const temUsers = [...users];   //copied object from array users;
+    const temUser= temUsers[index];
+    const userObj = { ...temUser, status : 'Active'};  //updated object
+    temUsers[index] = userObj;
+    setUsers(temUsers);
+
   };
 
-  incrementHandler = () => {
-    this.setState((prevState) => {
-      return {
-        counter: prevState.counter + 1,
-      };
-    });
-  };
-
-  render() {
-    return (
-      <div className="main">
-        <h1>hello, {this.state.personName}</h1>
-        <h2>Count: {this.state.counter}</h2>
-        <button className="btn" onClick={this.clickHandler}>
-          Click Me
-        </button><hr></hr>
-        <button className="btn" onClick={this.incrementHandler}>Increment</button>
-      </div>
-    );
-  }
+  return (
+    <div className="main">
+      {
+        users.map((user, index)=>(
+            <Card key={index}>
+              <User face={user.face} 
+                    username={user.username}
+                    status={user.status}
+                    index={index} 
+                    giveMeIndex = {verifyHandler}
+              />
+            </Card>
+          ))
+      }
+    </div>
+  )
 }
+
 
 export default App;
